@@ -1,0 +1,6 @@
+{
+  "name": "ac-maintenance-form",
+  "description": "Web-based AC Maintenance Form with PDF + CSV generation and email integration.",
+  "private": false,
+  "auto_init": true
+}

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ALMUFTAH AC Maintenance Form</title>
+
+<!-- jsPDF for PDF generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+  :root {
+    --brand:#d9534f;
+    --ink:#333;
+    --muted:#777;
+    --bg:#f4f7f6;
+    --card:#fff;
+    --border:#e6e6e6;
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);margin:0;padding:16px;color:var(--ink);}
+  .container{max-width:900px;margin:0 auto;background:var(--card);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.08);overflow:hidden}
+  header{padding:20px 24px 10px;border-top:6px solid var(--brand);text-align:center}
+  header h1{margin:0;color:var(--brand);font-size:22px}
+  header h2{margin:6px 0 2px;font-weight:600;font-size:16px}
+  header p{margin:0 0 6px;color:var(--muted);font-size:13px}
+  form{padding:18px 16px 22px}
+  fieldset{border:1px solid var(--border);border-radius:10px;padding:16px;margin:14px 0}
+  legend{padding:0 8px;color:var(--brand);font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .group{display:flex;flex-direction:column}
+  label{font-weight:600;font-size:14px;margin-bottom:6px}
+  .req::after{content:" *";color:#e40000}
+  input,select,textarea{padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:14px}
+  textarea{min-height:90px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand)}
+  .muted{color:var(--muted);font-size:12px}
+  .actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;margin-top:14px}
+  button{border:0;border-radius:10px;padding:12px 16px;font-weight:700;color:#fff;cursor:pointer}
+  .primary{background:#0275d8}
+  .primary:hover{background:#025aa5}
+  .success{background:#5cb85c}
+  .success:hover{background:#4cae4c}
+  .warning{background:#f0ad4e}
+  .warning:hover{background:#ec971f}
+  .footer-note{padding:0 16px 18px;text-align:center;color:#9a9a9a;font-size:12px}
+  .badge{display:inline-block;border:1px dashed #bbb;border-radius:8px;padding:6px 8px;font-size:12px;color:#555;background:#fafafa}
+</style>
+</head>
+<body>
+
+<div class="container" id="print-area">
+  <header>
+    <h1>ALMUFTAH EZDAN PROJECT - AC MAINTENANCE FORM</h1>
+    <h2>ALMUFTAH TRADING AND CONTRACTING Co. W.L.L.</h2>
+    <p>(Technical and Service Division) A Division of Almuftah Group</p>
+  </header>
+
+  <form id="acForm">
+    <!-- Section 1 -->
+    <fieldset>
+      <legend>Section 1 of 2 — Location & Date</legend>
+      <div class="grid">
+        <div class="group">
+          <label for="location" class="req">LOCATION / EZDAN NO</label>
+          <input id="location" name="location" placeholder="e.g., Ezdan 12 / Villa 34" required />
+        </div>
+        <div class="group">
+          <label for="complainDate" class="req">Complain Date</label>
+          <input id="complainDate" name="complainDate" type="date" required />
+        </div>
+        <div class="group">
+          <label for="description">Description (optional)</label>
+          <textarea id="description" name="description" placeholder="Short description of complaint"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Section 2 -->
+    <fieldset>
+      <legend>Section 2 of 2 — Complaint & Equipment Details</legend>
+
+      <div class="group">
+        <label class="req">Actual Complaint (Symptoms)</label>
+        <div class="row">
+          <!-- Using checkboxes for global standard symptoms -->
+          <label class="badge"><input type="checkbox" name="symptoms" value="Not Cooling"> Not Cooling</label>
+          <label class="badge"><input type="checkbox" name="symptoms" value="Not Working"> Not Working</label>
+          <label class="badge"><input type="checkbox" name="symptoms" value="No Power"> No Power</label>
+          <label class="badge"><input type="checkbox" name="symptoms" value="Water Leakage"> Water Leakage</label>
+          <label class="badge"><input type="checkbox" name="symptoms" value="Ice Formation"> Ice Formation</label>
+          <label class="badge"><input type="checkbox" name="symptoms" value="Bad Smell"> Bad Smell</label>
+          <label class="badge"><input type="checkbox" name="symptoms" value="Noise"> Noise</label>
+          <label class="badge"><input type="checkbox" name="symptoms" value="Compressor"> Compressor</label>
+          <input style="flex:1;min-width:220px" name="otherSymptoms" placeholder="Other symptoms"/>
+        </div>
+      </div>
+
+      <hr style="border:0;border-top:1px solid #eee;margin:12px 0">
+
+      <div class="grid">
+        <div class="group">
+          <label for="indoorModel" class="req">Indoor Model Number</label>
+          <input id="indoorModel" name="indoorModel" required />
+        </div>
+        <div class="group">
+          <label for="indoorSerial" class="req">Indoor Serial Number</label>
+          <input id="indoorSerial" name="indoorSerial" required />
+        </div>
+        <div class="group">
+          <label for="outdoorModel" class="req">Outdoor Model Number</label>
+          <input id="outdoorModel" name="outdoorModel" required />
+        </div>
+        <div class="group">
+          <label for="outdoorSerial" class="req">Outdoor Serial Number</label>
+          <input id="outdoorSerial" name="outdoorSerial" required />
+        </div>
+      </div>
+
+      <fieldset style="margin-top:14px">
+        <legend>Defect / Maintenance</legend>
+        <div class="grid">
+          <div class="group">
+            <label>Initial diagnosis</label>
+            <select name="diagnosis">
+              <option value="">-- Select --</option>
+              <option>Need Replacement Parts</option>
+              <option>Need Maintenance</option>
+              <option>Need Service</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="group" style="grid-column:1/-1">
+            <label>Actions Performed</label>
+            <div class="row">
+              <label class="badge"><input type="checkbox" name="actions" value="Fan Motor"> Fan Motor</label>
+              <label class="badge"><input type="checkbox" name="actions" value="Capacitor"> Capacitor</label>
+              <label class="badge"><input type="checkbox" name="actions" value="PCB / Control Board Unit"> PCB / Control Board Unit</label>
+              <label class="badge"><input type="checkbox" name="actions" value="Outdoor Remove"> Outdoor Remove</label>
+              <label class="badge"><input type="checkbox" name="actions" value="Filter / Blower Cleaning"> Filter / Blower Cleaning</label>
+              <label class="badge"><input type="checkbox" name="actions" value="Indoor Remove"> Indoor Remove</label>
+              <label class="badge"><input type="checkbox" name="actions" value="Leak Repair / Gas Charging"> Leak Repair / Gas Charging</label>
+              <input style="flex:1;min-width:220px" name="otherActions" placeholder="Other actions"/>
+            </div>
+          </div>
+          <div class="group"><label>Suction Pressure (PSI)</label><input type="number" step="0.1" name="suctionPressure"></div>
+          <div class="group"><label>Discharge Pressure (PSI)</label><input type="number" step="0.1" name="dischargePressure"></div>
+          <div class="group"><label>Running Amperage (Amps)</label><input type="number" step="0.1" name="runningAmps"></div>
+          <div class="group"><label>Voltage Reading (Volts)</label><input type="number" step="0.1" name="voltage"></div>
+          <div class="group" style="grid-column:1/-1">
+            <label class="req">Parts Replaced (if any)</label>
+            <textarea name="partsReplaced" placeholder="List parts or write N/A" required></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Replacement Unit (if entire unit replaced)</legend>
+        <div class="grid">
+          <div class="group"><label>New Unit S/N</label><input name="newUnitSN1"/></div>
+          <div class="group"><label>New Unit S/N</label><input name="newUnitSN2"/></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Completion Status & Verification</legend>
+        <div class="grid">
+          <div class="group">
+            <label class="req">Complaint Status</label>
+            <select id="complaintStatus" name="complaintStatus" required>
+              <option value="">-- Select Status --</option>
+              <option>Complaint Done</option>
+              <option>No Complaint</option>
+              <option>Completed</option>
+              <option>Pending</option>
+              <option>Delay by Customer (1 Time)</option>
+              <option>Delay by Customer (2 Times)</option>
+              <option>Delay by Customer (3 Times)</option>
+              <option>Delay by Customer (Many Times)</option>
+              <option>Not Open (1 Time)</option>
+              <option>Not Open (2 Times)</option>
+              <option>Not Open (3 Times)</option>
+              <option>Not Open (Many Times)</option>
+              <option>Indoor Remove</option>
+              <option>Indoor Motor Remove</option>
+              <option>Swing Motor Remove</option>
+              <option>Remote Sensor Remove</option>
+              <option>AC Working OK but Customer Requests New AC</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="group">
+            <label class="req">Supervisor Name</label>
+            <input name="supervisor" value="KAMAL AHMED" readonly required/>
+          </div>
+          <div class="group" style="grid-column:1/-1">
+            <label>Technician's Remarks / Observations</label>
+            <textarea name="remarks" placeholder="Notes, measurements, observations"></textarea>
+          </div>
+          <div class="group">
+            <label class="req">Attended Technician</label>
+            <input name="technician" placeholder="Technician full name" required/>
+          </div>
+          <div class="group">
+            <label>Photo Proof (optional)</label>
+            <input type="file" accept="image/*" capture="environment" id="photoProof" name="photoProof"/>
+            <span class="muted">If attached, it will be added to page 2 of the PDF.</span>
+          </div>
+          <div class="group" style="grid-column:1/-1">
+            <label class="req"><input type="checkbox" id="techConfirm" required> Technician confirms complaint attended/visited</label>
+          </div>
+        </div>
+      </fieldset>
+    </fieldset>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" class="warning" id="emailBtn">Email Report</button>
+      <button type="submit" class="success" id="submitBtn">Submit & Download (PDF + CSV)</button>
+    </div>
+  </form>
+
+  <div class="footer-note">Designed by @mohiuddin</div>
+</div>
+
+<script>
+  const form = document.getElementById('acForm');
+  const photoInput = document.getElementById('photoProof');
+  const emailBtn = document.getElementById('emailBtn');
+
+  // Helper: collect all form data (including multi-select checkboxes)
+  function collectFormData() {
+    const fd = new FormData(form);
+    // Gather multi-value fields
+    const symptoms = Array.from(form.querySelectorAll('input[name="symptoms"]:checked')).map(i=>i.value);
+    const actions = Array.from(form.querySelectorAll('input[name="actions"]:checked')).map(i=>i.value);
+    const data = Object.fromEntries(fd.entries());
+    data.symptoms = symptoms.join('; ');
+    data.actions = actions.join('; ');
+    data.submissionTime = new Date().toLocaleString(); // timestamp
+    return data;
+  }
+
+  // Helper: build CSV (Excel-friendly)
+  function downloadCSV(data, filenameBase){
+    const headers = Object.keys(data);
+    const values = headers.map(k => {
+      const v = (data[k] ?? '').toString().replace(/"/g,'""');
+      return `"${v}"`;
+    });
+    const csv = headers.join(',') + "\r\n" + values.join(',') + "\r\n";
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${filenameBase}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // Helper: read file to dataURL
+  function fileToDataURL(file){
+    return new Promise((resolve,reject)=>{
+      const fr = new FileReader();
+      fr.onload = () => resolve(fr.result);
+      fr.onerror = reject;
+      fr.readAsDataURL(file);
+    });
+  }
+
+  // PDF generator (text layout + optional photo page)
+  async function generatePDF(data){
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const left = 12, top = 12, line = 6;
+
+    // Header
+    pdf.setFontSize(14); pdf.setTextColor(217,83,79);
+    pdf.text("ALMUFTAH EZDAN PROJECT - AC MAINTENANCE FORM", left, top);
+    pdf.setTextColor(0,0,0);
+    pdf.setFontSize(11); pdf.text("ALMUFTAH TRADING AND CONTRACTING Co. W.L.L.", left, top+7);
+    pdf.setFontSize(10); pdf.text("(Technical and Service Division) A Division of Almuftah Group", left, top+13);
+
+    // Section: Location & Date
+    let y = top + 23;
+    pdf.setFontSize(12); pdf.setTextColor(217,83,79); pdf.text("Section 1 — Location & Date", left, y);
+    pdf.setTextColor(0,0,0); pdf.setFontSize(10); y+=line+2;
+    pdf.text(`Location / Ezdan No: ${data.location||''}`, left, y); y+=line;
+    pdf.text(`Complain Date: ${data.complainDate||''}`, left, y); y+=line;
+    if(data.description){ pdf.text(`Description: ${data.description}`, left, y); y+=line; }
+
+    // Section: Complaint & Equipment
+    y += 4; pdf.setFontSize(12); pdf.setTextColor(217,83,79); pdf.text("Section 2 — Complaint & Equipment Details", left, y);
+    pdf.setTextColor(0,0,0); pdf.setFontSize(10); y+=line+2;
+    if(data.symptoms) { pdf.text(`Symptoms: ${data.symptoms}`, left, y); y+=line; }
+    if(data.otherSymptoms){ pdf.text(`Other Symptoms: ${data.otherSymptoms}`, left, y); y+=line; }
+    pdf.text(`Indoor Model: ${data.indoorModel||''}`, left, y); y+=line;
+    pdf.text(`Indoor Serial: ${data.indoorSerial||''}`, left, y); y+=line;
+    pdf.text(`Outdoor Model: ${data.outdoorModel||''}`, left, y); y+=line;
+    pdf.text(`Outdoor Serial: ${data.outdoorSerial||''}`, left, y); y+=line;
+
+    // Defect / Maintenance
+    y += 4; pdf.setFontSize(12); pdf.setTextColor(217,83,79); pdf.text("Defect / Maintenance", left, y);
+    pdf.setTextColor(0,0,0); pdf.setFontSize(10); y+=line+2;
+    if(data.diagnosis){ pdf.text(`Initial Diagnosis: ${data.diagnosis}`, left, y); y+=line; }
+    if(data.actions){ pdf.text(`Actions Performed: ${data.actions}`, left, y); y+=line; }
+    if(data.otherActions){ pdf.text(`Other Actions: ${data.otherActions}`, left, y); y+=line; }
+    if(data.suctionPressure){ pdf.text(`Suction Pressure (PSI): ${data.suctionPressure}`, left, y); y+=line; }
+    if(data.dischargePressure){ pdf.text(`Discharge Pressure (PSI): ${data.dischargePressure}`, left, y); y+=line; }
+    if(data.runningAmps){ pdf.text(`Running Amps: ${data.runningAmps}`, left, y); y+=line; }
+    if(data.voltage){ pdf.text(`Voltage (V): ${data.voltage}`, left, y); y+=line; }
+    pdf.text(`Parts Replaced: ${data.partsReplaced||'N/A'}`, left, y); y+=line;
+
+    // Replacement
+    if(data.newUnitSN1 || data.newUnitSN2){
+      y += 4; pdf.setFontSize(12); pdf.setTextColor(217,83,79); pdf.text("Replacement Unit", left, y);
+      pdf.setTextColor(0,0,0); pdf.setFontSize(10); y+=line+2;
+      if(data.newUnitSN1){ pdf.text(`New Unit S/N: ${data.newUnitSN1}`, left, y); y+=line; }
+      if(data.newUnitSN2){ pdf.text(`New Unit S/N: ${data.newUnitSN2}`, left, y); y+=line; }
+    }
+
+    // Completion
+    y += 4; pdf.setFontSize(12); pdf.setTextColor(217,83,79); pdf.text("Completion Status & Verification", left, y);
+    pdf.setTextColor(0,0,0); pdf.setFontSize(10); y+=line+2;
+    pdf.text(`Complaint Status: ${data.complaintStatus||''}`, left, y); y+=line;
+    pdf.text(`Supervisor: ${data.supervisor||''}`, left, y); y+=line;
+    if(data.remarks){ pdf.text(`Technician Remarks: ${data.remarks}`, left, y); y+=line; }
+    pdf.text(`Technician: ${data.technician||''}`, left, y); y+=line;
+    pdf.text(`Technician Confirmation: YES`, left, y); y+=line;
+    pdf.text(`Submission Time: ${data.submissionTime}`, left, y); y+=line;
+
+    // Footer
+    pdf.setFontSize(9);
+    pdf.text("Designed by @mohiuddin", left, 292);
+
+    // Optional photo page
+    const file = photoInput.files && photoInput.files[0];
+    if(file){
+      try{
+        const imgDataURL = await fileToDataURL(file);
+        pdf.addPage('a4','p');
+        pdf.setFontSize(12);
+        pdf.setTextColor(217,83,79);
+        pdf.text("Photo Proof", 12, 12);
+        pdf.setTextColor(0,0,0);
+        // Fit image within margins
+        const margin = 12;
+        const pageW = pdf.internal.pageSize.getWidth() - margin*2;
+        const pageH = pdf.internal.pageSize.getHeight() - margin*2 - 8;
+        // We don't know the intrinsic ratio; let jsPDF scale into given box
+        pdf.addImage(imgDataURL, 'JPEG', margin, 20, pageW, pageH, undefined, 'FAST');
+        pdf.setFontSize(9);
+        pdf.text("Designed by @mohiuddin", margin, 292);
+      }catch(err){
+        console.warn('Photo could not be embedded:', err);
+      }
+    }
+
+    const safeLoc = (data.location||'location').replace(/[^\w\-]+/g,'-');
+    const fileName = `MaintenanceReport_${safeLoc}_${data.complainDate||'date'}.pdf`;
+    pdf.save(fileName);
+  }
+
+  // Submit handler: generate PDF + CSV
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    // Required tech confirm
+    const techConfirm = document.getElementById('techConfirm');
+    if(!techConfirm.checked){
+      alert('Please confirm that the technician attended/visited.');
+      return;
+    }
+
+    // Form validity
+    if(!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+
+    const data = collectFormData();
+
+    // Download CSV
+    const baseName = `MaintenanceReport_${(data.location||'location').replace(/[^\w\-]+/g,'-')}_${data.complainDate||'date'}`;
+    downloadCSV(data, baseName);
+
+    // Generate PDF
+    await generatePDF(data);
+
+    alert('CSV and PDF generated successfully.');
+    form.reset();
+  });
+
+  // Email button: pre-fills email (attachments cannot be auto-attached by browsers)
+  emailBtn.addEventListener('click', ()=>{
+    const data = collectFormData();
+    const to = 'service@yourcompany.com'; // <-- change to your email inbox
+    const subject = `AC Maintenance Report - ${data.location||''} - ${data.complainDate||''}`;
+    const lines = [
+      'ALMUFTAH AC Maintenance Report',
+      '--------------------------------',
+      `Location: ${data.location||''}`,
+      `Complain Date: ${data.complainDate||''}`,
+      `Description: ${data.description||''}`,
+      '',
+      `Symptoms: ${data.symptoms||''}`,
+      `Other Symptoms: ${data.otherSymptoms||''}`,
+      '',
+      `Indoor Model: ${data.indoorModel||''}`,
+      `Indoor Serial: ${data.indoorSerial||''}`,
+      `Outdoor Model: ${data.outdoorModel||''}`,
+      `Outdoor Serial: ${data.outdoorSerial||''}`,
+      '',
+      `Diagnosis: ${data.diagnosis||''}`,
+      `Actions: ${data.actions||''}`,
+      `Other Actions: ${data.otherActions||''}`,
+      `Suction PSI: ${data.suctionPressure||''}`,
+      `Discharge PSI: ${data.dischargePressure||''}`,
+      `Running Amps: ${data.runningAmps||''}`,
+      `Voltage: ${data.voltage||''}`,
+      `Parts Replaced: ${data.partsReplaced||''}`,
+      '',
+      `Replacement Unit S/N: ${data.newUnitSN1||''} ${data.newUnitSN2?'/ '+data.newUnitSN2:''}`,
+      '',
+      `Status: ${data.complaintStatus||''}`,
+      `Supervisor: ${data.supervisor||''}`,
+      `Technician: ${data.technician||''}`,
+      `Remarks: ${data.remarks||''}`,
+      '',
+      `Submission Time: ${data.submissionTime}`,
+      '',
+      'Designed by @mohiuddin'
+    ];
+    const body = encodeURIComponent(lines.join('\n'));
+    window.location.href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${body}`;
+  });
+</script>
+
+</body>
+</html><ALOASK-SEPARATE-EDITORS><ALOASK-SEPARATE-EDITORS>
